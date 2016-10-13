@@ -7,7 +7,6 @@
     "test": "nyc mocha --compilers js:babel-core/register -R dot -u bdd test",
     "lint": "eslint src",
     "lint:test": "eslint test",
-    "watch": "gulp watch",
     "build": "rm -rf dist && mkdir dist && babel src -d dist",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "start": "nodemon index.js --exec babel-node"
