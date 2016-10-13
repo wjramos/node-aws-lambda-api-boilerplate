@@ -1,3 +1,4 @@
+import polyfill from 'babel-polyfill';
 import * as lib from './lib';
 const handlers = {};
 

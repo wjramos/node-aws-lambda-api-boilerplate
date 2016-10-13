@@ -2,6 +2,24 @@
   "name": "lambda-boilerplate-node",
   "version": "0.0.1",
   "description": "Get started quick building and deploying a full Node.js application quick and painlessly on AWS Lambda",
+  "author": "Jordan Ramos",
+  "license": "ISC",
+  "keywords": [
+    "lambda",
+    "aws",
+    "node",
+    "boilerplate",
+    "api",
+    "gateway"
+  ],
+  "homepage": "https://github.com/TimeInc/lambda-boilerplate-node#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimeInc/lambda-boilerplate-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TimeInc/lambda-boilerplate-node/issues"
+  },
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --compilers js:babel-core/register -R dot -u bdd test",
@@ -11,24 +29,12 @@
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "start": "nodemon index.js --exec babel-node"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TimeInc/lambda-boilerplate-node.git"
+  "dependencies": {
+    "assign-deep": "^0.4.5",
+    "caas-content-client-node": "^1.0.10",
+    "moment": "^2.15.1",
+    "striptags": "^2.1.1"
   },
-  "keywords": [
-    "lambda",
-    "aws",
-    "node",
-    "boilerplate",
-    "api",
-    "gateway"
-  ],
-  "author": "Jordan Ramos",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/TimeInc/lambda-boilerplate-node/issues"
-  },
-  "homepage": "https://github.com/TimeInc/lambda-boilerplate-node#readme",
   "devDependencies": {
     "babel-core": "6.14.0",
     "babel-loader": "6.2.5",
