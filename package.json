@@ -22,12 +22,12 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha --compilers js:babel-core/register -R dot -u bdd test",
-    "test:watch": "nyc mocha --compilers js:babel-core/register -R dot -u bdd -w test",
-    "lint": "eslint src",
-    "lint:test": "eslint test",
+    "test": "ENV=test nyc mocha --compilers js:babel-core/register -R dot -u bdd test",
+    "test:watch": "ENV=test nyc mocha --compilers js:babel-core/register -R dot -u bdd -w test",
+    "coverage": "ENV=test nyc --reporter=lcov --reporter=text-lcov npm test",
+    "lint": "ENV=test eslint -c node_modules/tardis-common/.eslintrc src",
+    "lint:test": "ENV=test eslint -c node_modules/tardis-common/.eslintrc test",
     "build": "rm -rf dist && mkdir dist && babel src -d dist",
-    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "start": "nodemon index.js --exec babel-node"
   },
   "dependencies": {
@@ -50,6 +50,7 @@
     "nodemon": "^1.11.0",
     "nyc": "^8.3.1",
     "sinon": "1.17.5",
-    "sinon-chai": "2.8.0"
+    "sinon-chai": "2.8.0",
+    "tardis-common": "^1.8.11"
   }
 }
