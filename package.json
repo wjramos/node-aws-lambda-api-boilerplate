@@ -28,6 +28,7 @@
     "lint": "ENV=test eslint -c node_modules/tardis-common/.eslintrc src",
     "lint:test": "ENV=test eslint -c node_modules/tardis-common/.eslintrc test",
     "build": "rm -rf dist && mkdir dist && babel src -d dist",
+    "bundle": "npm run build && cd dist && zip -rq bundle.zip . && mv bundle.zip ../",
     "start": "nodemon index.js --exec babel-node"
   },
   "dependencies": {

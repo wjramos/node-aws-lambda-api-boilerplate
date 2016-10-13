@@ -25,8 +25,9 @@ Put your unit tests in `test`. The `npm test` command runs the tests using Node.
 - `npm run lint` - Lint the source
 - `npm run lint:test` - Lint the unit tests
 - `npm run build` - Build the library
+- `npm run bundle` - Build and generate distributable bundle.zip in project root
 - `npm run coverage` - Generate a coverage report
-- `npm start` - run development web server with api
+- `npm start` - run development web server with api (default port 3000)
 
 ### Linting
 
