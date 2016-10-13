@@ -1,6 +1,8 @@
 import * as lib from './lib';
+
 const handlers = {};
 
+// Generate new handler per lib function
 for (let fn in lib) {
   handlers[fn.toLowerCase()] = createHandler(lib[fn]);
 }
