@@ -23,6 +23,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --compilers js:babel-core/register -R dot -u bdd test",
+    "test:watch": "nyc mocha --compilers js:babel-core/register -R dot -u bdd -w test",
     "lint": "eslint src",
     "lint:test": "eslint test",
     "build": "rm -rf dist && mkdir dist && babel src -d dist",
