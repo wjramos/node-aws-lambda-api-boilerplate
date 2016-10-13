@@ -18,11 +18,13 @@ Put your unit tests in `test`. The `npm test` command runs the tests using Node.
 ### npm Scripts
 
 - `npm test` - Lint the library and tests, then run the unit tests
-- `npm run lint` - Lint the source and unit tests
-- `npm run watch` - Continuously run the unit tests as you make changes to the source
+- `npm run test:watch` - Continuously run the unit tests as you make changes to the source
    and test files themselves
-- `npm run build` - Lint then build the library
+- `npm run lint` - Lint the source
+- `npm run lint:test` - Lint the unit tests
+- `npm run build` - Build the library
 - `npm run coverage` - Generate a coverage report
+- `npm start` - run development web server with api
 
 ### Linting
 
@@ -60,14 +62,6 @@ may be a delay between when a new feature is added to Babel and when those other
 
 <details>
 <summary>
-  **When should I consider using this boilerplate?**
-</summary>
-
-This library is ideal for libraries that export a single file.
-</details>
-
-<details>
-<summary>
   **What's the cost of transpiling?**
 </summary>
 
@@ -98,7 +92,7 @@ As stated here, https://github.com/59naga/babel-plugin-add-module-exports:
 So just `npm install babel-plugin-add-module-exports --save-dev` and then add it to your .babelrc file:
 ```
 {
-  "presets": ["latest"],
+  "presets": [ "latest" ],
   "plugins": [
     "add-module-exports",
     "transform-es2015-modules-umd"
@@ -106,46 +100,3 @@ So just `npm install babel-plugin-add-module-exports --save-dev` and then add it
 }
 ```
 </details>
-
-### Customizing
-
-This boilerplate is, to a degree, customizable. To make changes,
-find what you're looking to do below and follow the instructions.
-
-#### I want to change the primary source file
-
-The primary source file for the library is `src/index.js`. Only the files that this
-file imports will be included in the final build. To change the name of this entry file:
-
-1. Rename the file
-2. Update the value of `entryFileName` in `package.json` under `babelBoilerplateOptions`
-
-#### I want to change the destination file name or directory
-
-1. Update `main` in `package.json`
-
-#### I want to change what variable my module exports
-
-`MyLibrary` is the name of the variable exported from this boilerplate. You can change this by following
-these steps:
-
-1. Ensure that the variable you're exporting exists in your scripts
-2. Update the value of `exportVarName` in `package.json` under `babelBoilerplateOptions`
-3. Check that the unit tests have been updated to reference the new value
-
-#### I don't want to export a variable
-
-When prompted for the name of the library's main variable, leave the response empty.
-
-#### My library depends on an external module
-
-Install the module and use it in your scripts like usual. Then, go into the Gulpfile and
-add the [`externals`](https://webpack.github.io/docs/configuration.html#externals) to the
-Webpack build options.
-
-If you want to access the module itself in your unit test files, you will need to set up the
-test environment to support the module. To do this:
-
-1. Load the module in the [test setup file](https://github.com/babel/generator-babel-boilerplate/blob/master/test/setup/setup.js).
-2. Add any imported variables to globals object in the
-[test globals JSON](https://github.com/babel/generator-babel-boilerplate/blob/master/test/setup/.globals.js).
