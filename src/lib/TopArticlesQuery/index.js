@@ -13,7 +13,7 @@ export default class ElasticSearchQuery {
       this.query = mapCaasQuery( config );
     }
 
-    return fetch();
+    return this.fetch();
   }
 
   async fetch () {
