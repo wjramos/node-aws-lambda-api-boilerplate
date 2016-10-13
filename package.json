@@ -22,25 +22,29 @@
   },
   "main": "dist/index.js",
   "scripts": {
-    "test": "ENV=test nyc mocha --compilers js:babel-core/register -R dot -u bdd test",
+    "start": "nodemon index.js --exec babel-node",
+    "test": "npm run test:run",
+    "bundle": "npm run build && npm run bundle:zip",
+    "build": "npm run build:clear && npm run build:compile && npm run build:install",
+    "lint": "npm run lint:src && npm run lint:test",
+    "bundle:zip": "zip -rq bundle.zip dist",
+    "test:run": "ENV=test nyc mocha --compilers js:babel-core/register -R dot -u bdd test",
     "test:watch": "ENV=test nyc mocha --compilers js:babel-core/register -R dot -u bdd -w test",
-    "coverage": "ENV=test nyc --reporter=lcov --reporter=text-lcov npm test",
-    "lint": "ENV=test eslint -c node_modules/tardis-common/.eslintrc src",
+    "test:cover": "ENV=test nyc --reporter=lcov --reporter=text-lcov npm test",
+    "lint:src": "ENV=test eslint -c node_modules/tardis-common/.eslintrc src",
     "lint:test": "ENV=test eslint -c node_modules/tardis-common/.eslintrc test",
-    "build": "rm -rf dist && mkdir dist && babel src -d dist",
-    "bundle": "npm run build && cd dist && zip -rq bundle.zip . && mv bundle.zip ../",
-    "start": "nodemon index.js --exec babel-node"
+    "build:compile": "babel src -d dist -D",
+    "build:clear": "rm -rf dist && mkdir dist",
+    "build:install": "cd dist && npm install --production && cd .."
   },
   "dependencies": {
-    "assign-deep": "^0.4.5",
-    "caas-content-client-node": "^1.0.10",
-    "moment": "^2.15.1",
-    "striptags": "^2.1.1"
+    "babel-runtime": "^6.11.6"
   },
   "devDependencies": {
     "babel-core": "6.14.0",
     "babel-loader": "6.2.5",
     "babel-plugin-istanbul": "^2.0.1",
+    "babel-plugin-transform-export-extensions": "^6.8.0",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-polyfill": "6.13.0",
     "babel-preset-latest": "6.14.0",

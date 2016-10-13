@@ -1,8 +1,16 @@
 {
-  "presets": [ "latest" ],
+  "passPerPreset": true,
+  "comments": false,
   "env": {
     "test": {
       "plugins": [ "istanbul" ]
     }
-  }
+  },
+  "presets": [
+    { "plugins": [ "transform-runtime", "babel-plugin-transform-export-extensions" ] },
+    {
+      "passPerPreset": false,
+      "presets": [ "latest" ]
+    }
+  ]
 }

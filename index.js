@@ -1,5 +1,4 @@
 import express from 'express';
-
 import handlers from './src';
 
 const PORT = process.env.PORT || 3000;

@@ -1,0 +1,17 @@
+{
+  "name": "top-articles-query",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jordan Ramos",
+  "license": "ISC",
+  "dependencies": {
+    "assign-deep": "^0.4.5",
+    "caas-content-client-node": "^1.0.10",
+    "moment": "^2.15.1",
+    "striptags": "^2.1.1"
+  }
+}
