@@ -42,8 +42,8 @@ export function mapCaasQuery ( config = {} ) {
     const time_zone = CONST.TIME_ZONE;
     const brandKey = CONST.TERM_PROP;
 
-    const mustArr = query.query.bool.must;
-    const sortArr = query.sort;
+    const mustArr = query.query.bool.must = [];
+    const sortArr = query.sort = [];
 
     /**
      * Date Format and Date Math References:

@@ -7,7 +7,7 @@ import { cloneObject, truncateString } from '../util';
 
 const searchStub = stub().returns([1,2,3]);
 const STUBBED_TIMESTAMP = 0;
-const imports = prequire( '../TopArticlesQuery', {
+const imports = prequire( '../index', {
   './util': {
       searchContent: async query => searchStub,
       parseDateExp: exp => STUBBED_TIMESTAMP
@@ -17,7 +17,7 @@ const imports = prequire( '../TopArticlesQuery', {
 const Query = imports.default;
 const { mapCaasQuery, mapContent } = imports;
 
-describe( 'TopArticlesQuery', ( ) => {
+describe( 'ElasticSearchQuery', ( ) => {
     it( 'should bail if first brand parameter is not specified', ( ) => {
         const testInstance = new Query( );
         assert( !testInstance.query );
@@ -34,7 +34,7 @@ describe( 'TopArticlesQuery', ( ) => {
     } );
 } );
 
-describe( 'TopArticlesQuery.fetch', ( ) => {
+describe( 'ElasticSearchQuery.fetch', ( ) => {
     it( 'should return empty set if no query set (or no results found)', ( ) => {
         const testInstance = new Query( INPUT.BRAND );
         testInstance.query = false;
