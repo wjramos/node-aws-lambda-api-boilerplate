@@ -11,6 +11,7 @@ app.get('/', (req, res) => res.json({ handlers }));
 
 for (let handler in handlers) {
   app.get(`/${handler}`, (req, res) => handlers[handler](req.query, null, (err, result) => res.json(result)));
+  app.post(`/${handler}`, (req, res) => handlers[handler](req.body, null, (err, result) => res.json(result)));
 }
 
 app.listen(PORT);

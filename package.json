@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/TimeInc/lambda-boilerplate-node/issues"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "ENV=test nyc mocha --compilers js:babel-core/register -R dot -u bdd test",
     "test:watch": "ENV=test nyc mocha --compilers js:babel-core/register -R dot -u bdd -w test",
