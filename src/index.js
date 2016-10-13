@@ -1,4 +1,3 @@
-import polyfill from 'babel-polyfill';
 import * as lib from './lib';
 const handlers = {};
 
@@ -9,13 +8,13 @@ for (let fn in lib) {
 export default handlers;
 
 function createHandler(Clss) {
-  return async (e, ctx, cb ) => {
-    for (let param in e) {
-      console.log(`${param}: ${e[param]}`);
+  return async (params, ctx, cb ) => {
+    for (let param in params) {
+      console.log(`${param}: ${params[param]}`);
     }
 
     try {
-      const result = await (new Clss(e));
+      const result = await (new Clss(params));
       return cb(null, result);
 
     } catch(err) {

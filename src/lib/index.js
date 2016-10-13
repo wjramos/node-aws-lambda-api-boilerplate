@@ -1,3 +1,5 @@
 import GetPopular from './TopArticlesQuery';
+import Demo from './Demo';
 
-export { GetPopular };
+// Bundle handler functions
+export { GetPopular, Demo };

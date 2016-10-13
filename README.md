@@ -4,7 +4,9 @@ Get started quick building and deploying a full Node.js application quick and pa
 ### Features
 
 ✓ Author in [ES2015](https://babeljs.io/docs/learn-es2015/) (including the unit tests)
+
 ✓ Export as ES5 & [UMD](https://github.com/umdjs/umd)
+
 ✓ [Mocha](http://mochajs.org/)-[Chai](http://chaijs.com/)-[Sinon](http://sinonjs.org/) testing stack
 
 ### Basic Guide
