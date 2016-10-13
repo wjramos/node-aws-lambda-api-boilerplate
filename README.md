@@ -18,16 +18,13 @@ Run `npm run build` to compile the source into a distributable format.
 Put your unit tests in `test`. The `npm test` command runs the tests using Node.
 
 ### npm Scripts
-
-- `npm test` - Lint the library and tests, then run the unit tests
-- `npm run test:watch` - Continuously run the unit tests as you make changes to the source
+- `npm start` - run development web server with api (default port 3000)
+- `npm test` - Lint the library and tests, then run the unit tests and generate coverage reports
+- `npm run watch` - Continuously run the unit tests as you make changes to the source
    and test files themselves
-- `npm run lint` - Lint the source
-- `npm run lint:test` - Lint the unit tests
+- `npm run lint` - Lint the source and tests
 - `npm run build` - Build the library
 - `npm run bundle` - Build and generate distributable bundle.zip in project root
-- `npm run coverage` - Generate a coverage report
-- `npm start` - run development web server with api (default port 3000)
 
 ### Linting
 
