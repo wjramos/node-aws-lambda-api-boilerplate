@@ -7,7 +7,10 @@
     }
   },
   "presets": [
-    { "plugins": [ "transform-runtime", "babel-plugin-transform-export-extensions" ] },
+    { "plugins": [
+      "transform-runtime",
+      "transform-export-extensions"
+    ] },
     {
       "passPerPreset": false,
       "presets": [ "latest" ]

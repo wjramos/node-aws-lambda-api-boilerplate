@@ -9,8 +9,8 @@ for (let fn in lib) {
 
 export default handlers;
 
-function createHandler(Clss) {
-  return async (params, ctx, cb ) => {
+export function createHandler(Clss) {
+  return async (params, ctx, cb) => {
     for (let param in params) {
       console.log(`${param}: ${params[param]}`);
     }
@@ -25,14 +25,3 @@ function createHandler(Clss) {
     }
   };
 }
-
-// for (let handler in handlers) {
-//   handlers[handler]({
-//     brand: 'foodandwine',
-//     limit: 10,
-//     from: 'now-7d',
-//     // to: 'now-1d',
-//     // social: 'FacebookShares',
-//     // date: 'modified'
-//   }, null, console.log )
-// }
