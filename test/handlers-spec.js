@@ -14,7 +14,7 @@ describe('createHandler', () => {
     });
 
     it('should pass a singleton of a class to the second parameter of a callback', () => {
-      assert.isObject(createHandler(Object)({}, null, getResult));
+      assert.isObject(handler({}, null, getResult));
     });
   }
 );
