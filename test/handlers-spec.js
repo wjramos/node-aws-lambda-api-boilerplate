@@ -5,16 +5,16 @@ import handlers, { createHandler } from '../src/handlers';
 const getResult = (err, result) => result;
 
 describe('createHandler', () => {
-    let handler;
+  const Constructor = Object;
+  let handler;
 
-    beforeEach(() => handler = createHandler(Object));
+  beforeEach(() => handler = createHandler(Constructor));
 
-    it('should return a function', () => {
-      assert.isFunction(handler);
-    });
+  it('should return a function', () => {
+    assert.isFunction(handler);
+  });
 
-    it('should pass a singleton of a class to the second parameter of a callback', () => {
-      assert.isObject(handler({}, null, getResult));
-    });
-  }
-);
+  it('should pass a singleton of a class to the second parameter of a callback', () => {
+    assert.instanceof(handler({}, null, getResult), Constructor);
+  });
+});
