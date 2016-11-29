@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import handlers, { createHandler, isClass } from '../src/handlers';
+import { createHandler, isClass } from '../src/util';
 
 const getResult = (err, result) => result;
 const getError = (err, result) => err;

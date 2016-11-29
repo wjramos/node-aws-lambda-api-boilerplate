@@ -7,7 +7,7 @@ const app = express();
 
 console.log('Server started on port', PORT);
 app.options('/', (req, res) => res.json({ handlers }));
-app.get('/',     (req, res) => res.json({ handlers }));
+app.get(    '/', (req, res) => res.json({ handlers }));
 
 for (let handler in handlers) {
   app.get( `/${handler}`, (req, res) => handlers[handler](req.query, null, (err, result) => res.json(result)));
