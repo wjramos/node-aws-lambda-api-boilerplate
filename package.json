@@ -39,7 +39,8 @@
     "build:install": "cp package.json dist && find dist -type f -name 'package.json' -execdir npm install --production {} \\;"
   },
   "dependencies": {
-    "babel-runtime": "^6.11.6"
+    "babel-runtime": "^6.11.6",
+    "lodash.kebabcase": "^4.1.1"
   },
   "devDependencies": {
     "babel-core": "6.14.0",
