@@ -23,7 +23,8 @@ export function injectHeadScript( doc, script ) {
   const tag = doc.createElement('script');
   const head = doc.getElementsByTagName('head')[0];
   head.appendChild(tag);
-  head.childNodes[head.childNodes.length - 1].setAttribute('type', 'text/javascript');
-  head.childNodes[head.childNodes.length - 1].textContent = script;
+  const last = head.childNodes.length - 1;
+  head.childNodes[last].setAttribute('type', 'text/javascript');
+  head.childNodes[last].textContent = script;
   return doc;
 }
