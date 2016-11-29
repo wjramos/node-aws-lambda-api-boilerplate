@@ -32,11 +32,11 @@
     "watch:test": "npm run test:run -- -w",
     "test:run": "ENV=test nyc mocha --compilers js:babel-core/register -R dot -u bdd $(find src -name '*-spec.js')",
     "test:cover": "ENV=test nyc --reporter=lcov --reporter=text-lcov npm test",
-    "lint:src": "ENV=test eslint -c node_modules/tardis-common/.eslintrc src",
-    "lint:test": "ENV=test eslint -c node_modules/tardis-common/.eslintrc test",
+    "lint:src": "ENV=test eslint src",
+    "lint:test": "ENV=test eslint test",
     "build:compile": "babel src -d dist -D",
     "build:clean": "rm -rf dist && mkdir dist",
-    "build:install": "cp package.json dist && find dist -type f -name 'package.json' -execdir npm install --production {} \\;"
+    "build:install": "cp package.json dist && find dist -name package.json -execdir npm install --production \\;"
   },
   "dependencies": {
     "babel-runtime": "^6.11.6",
