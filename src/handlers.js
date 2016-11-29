@@ -16,6 +16,7 @@ export function createHandler(Clss) {
     }
 
     try {
+      if (!isClass(Clss)) { throw new Error(`${Clss.name} is not a class`) };
       const result = await (new Clss(params));
       return cb(null, result);
 
@@ -24,4 +25,14 @@ export function createHandler(Clss) {
       return cb(err);
     }
   };
+}
+
+export function isClass(fn) {
+  if ( typeof fn === 'function' && fn.prototype.constructor === fn ) {
+    try {
+      return !!new fn();
+    } catch (e) {}
+  }
+
+  return false;
 }
