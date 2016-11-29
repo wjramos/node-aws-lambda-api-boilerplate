@@ -1,4 +1,6 @@
 import Demo from './Demo';
+import IframeSizer from './IframeSizer';
 
 // Bundle handler functions
-export { Demo };
+// @TODO Programattically import and export
+export { Demo, IframeSizer };
