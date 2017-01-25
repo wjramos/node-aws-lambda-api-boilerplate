@@ -22,8 +22,7 @@
   },
   "main": "dist/index.js",
   "scripts": {
-    "dev": "ENV=local nodemon index.js --exec babel-node | bunyan",
-    "start": "ENV=production node index.js 2> /dev/null || ENV=production node dist/index.js 2> /dev/null || babel-node src/index.js",
+    "start": "ENV=local nodemon index.js --exec babel-node | bunyan",
     "watch": "npm run watch:test",
     "watch:test": "npm run test:unit -- -w",
     "test": "npm run test:unit && npm run test:cover && npm run test:lint",
