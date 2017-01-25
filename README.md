@@ -11,9 +11,9 @@ Get started quick building and deploying a full Node.js application quick and pa
 
 ### Basic Guide
 
-Write your code in `src`.
+Write your code in `src/handlers`.
 
-Run `npm run build` to compile the source into a distributable format.
+Run `npm run build` to compile the source into ES5.
 
 Put your unit tests in `test`. The `npm test` command runs the tests using Node.
 
@@ -23,7 +23,7 @@ Put your unit tests in `test`. The `npm test` command runs the tests using Node.
 - `npm run watch` - Continuously run the unit tests as you make changes to the source
    and test files themselves
 - `npm run lint` - Lint the source and tests
-- `npm run build` - Build the library
+- `npm run build` - Transpile the library to ES5 in dist
 - `npm run bundle` - Build and generate distributable bundle.zip in project root
 
 ### Linting
