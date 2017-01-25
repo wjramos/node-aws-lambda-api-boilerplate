@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+
 import { createHandler, isClass } from '../util';
 
 const getResult = (err, result) => result;

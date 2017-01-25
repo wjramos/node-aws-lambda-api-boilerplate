@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+
 export function createHandler(Clss) {
   return async (params, ctx, cb) => {
     for (let param in params) {
@@ -6,9 +9,7 @@ export function createHandler(Clss) {
 
     try {
       if (!isClass(Clss)) { throw new Error(`${Clss.name} is not a class`) };
-      const result = await (new Clss(params));
-      return cb(null, result);
-
+      return cb(null, await new Clss(params));
     } catch(err) {
       console.error(err);
       return cb(err);
@@ -24,4 +25,10 @@ export function isClass(fn) {
   }
 
   return false;
+}
+
+export function getDirectories(srcpath) {
+  return fs.readdirSync(srcpath).filter(file => (
+    fs.statSync(path.join(srcpath, file)).isDirectory()
+  ));
 }

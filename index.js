@@ -1,17 +1,26 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import handlers from './src';
+export default handlers;
 
-const PORT = process.env.PORT || 3000;
+const { PORT = 3000 } = process.env;
 
-const app = express();
+const app = express().use(bodyParser.json());
 
-console.log('Server started on port', PORT);
-app.options('/', (req, res) => res.json({ handlers }));
-app.get(    '/', (req, res) => res.json({ handlers }));
+const listHandlers = (req, res) => res.json({ handlers });
+const getHandler = ({ params: { handler }, query }, res) => invokeHandler(res, handler, query);
+const invokeHandler = (res, handler, data = {}) => (
+  handlers[handler] ?
+  handlers[handler](data, null, (err, result) => result ? res.send(result) : res.send(err)) :
+  res.send(`${handler} is not a valid handler`)
+);
+const postHandler = ({ params: { handler }, body, query }, res) => (
+  invokeHandler(res, handler, Object.assign({}, body, query))
+);
 
-for (let handler in handlers) {
-  app.get( `/${handler}`, (req, res) => handlers[handler](req.query, null, (err, result) => res.json(result)));
-  app.post(`/${handler}`, (req, res) => handlers[handler](req.body,  null, (err, result) => res.json(result)));
-}
+app.get('/', listHandlers);
+app.get('/:handler', getHandler);
+app.post('/:handler', postHandler);
+app.options('/', listHandlers);
 
-app.listen(PORT);
+app.listen(PORT, () => console.info('Server started on port', PORT));

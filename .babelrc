@@ -1,19 +1,26 @@
 {
-  "passPerPreset": true,
-  "comments": false,
+  "presets": [ "latest" ],
+  "plugins": [
+    "add-module-exports",
+    "transform-async-to-generator",
+    "transform-export-extensions",
+    "transform-runtime"
+  ],
   "env": {
+    "production": {
+      "presets": [ "babili" ]
+    },
     "test": {
       "plugins": [ "istanbul" ]
     }
   },
-  "presets": [
-    { "plugins": [
-      "transform-runtime",
-      "transform-export-extensions"
-    ] },
-    {
-      "passPerPreset": false,
-      "presets": [ "latest" ]
-    }
+  "ignore": [
+    "node_modules",
+    "dist",
+    "coverage",
+    ".nyc_output",
+    ".git",
+    ".nycrc",
+    "test"
   ]
 }
