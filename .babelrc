@@ -1,8 +1,10 @@
 {
-  "presets": [ "latest" ],
+  "presets": [
+    "env",
+    "stage-0"
+  ],
   "plugins": [
     "add-module-exports",
-    "transform-async-to-generator",
     "transform-export-extensions",
     "transform-runtime"
   ],
