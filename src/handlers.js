@@ -1,12 +1,8 @@
 import _kebabCase from 'lodash.kebabcase';
 import * as util from './util';
-import * as lib from './lib';
+import * as handlers from './handlers';
 
-const handlers = {};
-
-// Generate new handler per lib function
-for (let fn in lib) {
-  handlers[_kebabCase(fn)] = util.createHandler(lib[fn]);
-}
-
-export default handlers;
+export default Object.keys(handlers).reduce((handlers, handler) => {
+  handlers[_kebabCase(handler)] = util.createHandler(handlers[handler]);
+  return handlers;
+}, {});
