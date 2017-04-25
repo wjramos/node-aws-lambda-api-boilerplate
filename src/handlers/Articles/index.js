@@ -5,6 +5,11 @@ import { parse as parseUrl } from 'url';
 import { RECENT_ARTICLES, S3_BUCKET, AWS_CONFIG } from './config';
 
 const s3 = new S3(AWS_CONFIG);
+const prontoCache = new Map();
+const renderedCache = new Map();
+
+const PRONTO_CACHE_TTL = 30 * 60 * 1000; // 5 min
+const RENDERED_CACHE_TTL = 60 * 60 * 1000; // 1 hr
 
 export default class Articles {
   constructor( params = {} ) {
@@ -14,8 +19,16 @@ export default class Articles {
 
   async getPronto() {
     const { brand, limit = 20, offset = 0 } = this.params;
+    const endpoint = `${RECENT_ARTICLES}?brand=${brand}&limit=${limit}&offset=${offset}`;
+    const cached = prontoCache.get(endpoint);
+    if (cached && Date.now() < cached.expires) {
+      return cached.result;
+    }
+
     try {
-      return JSON.parse(await request(`${RECENT_ARTICLES}?brand=${brand}&limit=${limit}&offset=${offset}`));
+      const result = JSON.parse(await request(endpoint));
+      prontoCache.set(endpoint, { result, expires: Date.now() + PRONTO_CACHE_TTL });
+      return result;
     } catch (err) {
       return { err };
     }
@@ -59,6 +72,12 @@ export default class Articles {
     const { brand } = this.params;
     const pathname = parseUrl(article.asset_url).pathname;
     const key = `${brand}${pathname}/index.html`;
+    const cached = renderedCache.get(key);
+
+    if (cached && Date.now() < cached.expires) {
+      return cached.result;
+    }
+
     let rendered;
 
     try {
@@ -67,9 +86,14 @@ export default class Articles {
       console.error('Could not get content', e);
     }
 
-    article.rendered = rendered;
+    if (this.params.rendered !== false) {
+      article.rendered = rendered;
+    }
 
-    return this.sanitize(article);
+    const result = this.sanitize(article);
+    renderedCache.set(key, { result, expires: Date.now() + RENDERED_CACHE_TTL });
+
+    return result;
   }
 
   async getRenderedArticles(articles = []) {
