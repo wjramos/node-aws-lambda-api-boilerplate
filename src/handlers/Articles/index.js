@@ -9,7 +9,7 @@ const prontoCache = new Map();
 const renderedCache = new Map();
 
 const PRONTO_CACHE_TTL = 30 * 60 * 1000; // 5 min
-const RENDERED_CACHE_TTL = 60 * 60 * 1000; // 1 hr
+const RENDERED_CACHE_TTL = 24 * 60 * 60 * 1000; // 1 day
 
 export default class Articles {
   constructor( params = {} ) {
