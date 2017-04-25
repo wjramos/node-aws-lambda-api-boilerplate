@@ -8,7 +8,7 @@ const s3 = new S3(AWS_CONFIG);
 const prontoCache = new Map();
 const renderedCache = new Map();
 
-const PRONTO_CACHE_TTL = 30 * 60 * 1000; // 5 min
+const PRONTO_CACHE_TTL = 30 * 60 * 1000; // 30 min
 const RENDERED_CACHE_TTL = 24 * 60 * 60 * 1000; // 1 day
 
 export default class Articles {
