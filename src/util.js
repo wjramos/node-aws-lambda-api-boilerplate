@@ -32,3 +32,10 @@ export function getDirectories(srcpath) {
     fs.statSync(path.join(srcpath, file)).isDirectory()
   ));
 }
+
+export function kebabCase(str) {
+  const firstChar = str.charAt(0);
+  return str
+    .replace(firstChar, firstChar.toLowerCase())
+    .replace(/([A-Z])/g, (search, match) => `-${match.toLowerCase()}`);
+}

@@ -90,10 +90,15 @@ export default class Articles {
       article.rendered = rendered;
     }
 
-    article.hero = (
-      article.pronto.filter(component => component.type === 'components/article/hero-image') ||
-      article.pronto.filter(component => component.type === 'components/article/figure')
-    )[0].data;
+    const hero = (
+      article.pronto.article.filter(component => component.type === 'components/article/hero-image') ||
+      article.pronto.article.filter(component => component.type === 'components/article/figure')
+    )[0];
+
+    if (hero) {
+      article.hero = hero.data;
+    }
+
     article.id = article.$.id;
 
     const result = this.sanitize(article);
