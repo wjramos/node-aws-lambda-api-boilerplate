@@ -90,6 +90,12 @@ export default class Articles {
       article.rendered = rendered;
     }
 
+    article.hero = (
+      article.pronto.filter(component => component.type === 'components/article/hero-image') ||
+      article.pronto.filter(component => component.type === 'components/article/figure')
+    )[0].data;
+    article.id = article.$.id;
+
     const result = this.sanitize(article);
     renderedCache.set(key, { result, expires: Date.now() + RENDERED_CACHE_TTL });
 
