@@ -2,7 +2,7 @@ import { S3 } from 'aws-sdk';
 import request from 'request-promise';
 import { parse as parseUrl } from 'url';
 
-import { RECENT_ARTICLES, S3_BUCKET, AWS_CONFIG } from './config';
+import { ARTICLE, RECENT_ARTICLES, S3_BUCKET, AWS_CONFIG } from './config';
 
 const s3 = new S3(AWS_CONFIG);
 const prontoCache = new Map();
@@ -14,12 +14,24 @@ const RENDERED_CACHE_TTL = 24 * 60 * 60 * 1000; // 1 day
 export default class Articles {
   constructor( params = {} ) {
     this.params = params;
+
+    if (params.articleId) {
+      return this.getArticle()
+    }
+
     return this.getArticles();
   }
 
   async getPronto() {
-    const { brand, limit = 20, offset = 0 } = this.params;
-    const endpoint = `${RECENT_ARTICLES}?brand=${brand}&limit=${limit}&offset=${offset}`;
+    const { articleId, brand, limit = 20, offset = 0 } = this.params;
+
+    let endpoint;
+    if (articleId) {
+      endpoint = `${ARTICLE}?articleId=${articleId}`;
+    } else {
+      endpoint = `${RECENT_ARTICLES}?brand=${brand}&limit=${limit}&offset=${offset}`;
+    }
+
     const cached = prontoCache.get(endpoint);
     if (cached && Date.now() < cached.expires) {
       return cached.result;
@@ -69,7 +81,7 @@ export default class Articles {
   }
 
   async getRenderedArticle(article) {
-    const { brand } = this.params;
+    const { brand = article.brand, rendered } = this.params;
     const pathname = parseUrl(article.asset_url).pathname;
     const key = `${brand}${pathname}/index.html`;
     const cached = renderedCache.get(key);
@@ -78,16 +90,16 @@ export default class Articles {
       return cached.result;
     }
 
-    let rendered;
+    let markup;
 
     try {
-      rendered = await this.s3Get(S3_BUCKET, key);
+      markup = await this.s3Get(S3_BUCKET, key);
     } catch (e) {
       console.error('Could not get content', e);
     }
 
-    if (this.params.rendered !== false) {
-      article.rendered = rendered;
+    if (rendered !== false) {
+      article.rendered = markup;
     }
 
     const hero = (
@@ -117,7 +129,12 @@ export default class Articles {
   }
 
   async getArticles() {
-    let { articles = [] } = await this.getPronto();
+    const { articles = [] } = await this.getPronto();
     return await this.getRenderedArticles(articles);
+  }
+
+  async getArticle() {
+    const article = await this.getPronto();
+    return await this.getRenderedArticle(article);
   }
 }
