@@ -2,18 +2,16 @@ import fs from 'fs';
 import path from 'path';
 
 export function createHandler(Clss) {
+  if (!isClass(Clss)) {
+    throw new Error(`${Clss.name} is not a class`);
+  };
+
   return async (params, ctx, cb) => {
     for (let param in params) {
       console.log(`${param}: ${params[param]}`);
     }
 
-    try {
-      if (!isClass(Clss)) { throw new Error(`${Clss.name} is not a class`) };
-      return cb(null, await new Clss(params));
-    } catch(err) {
-      console.error(err);
-      return cb(err);
-    }
+    return cb(null, await new Clss(params));
   };
 }
 

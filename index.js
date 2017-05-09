@@ -1,11 +1,14 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import handlers from './src';
 export default handlers;
 
 const { PORT = 3000 } = process.env;
 
-const app = express().use(bodyParser.json());
+const app = express()
+  .use(bodyParser.json())
+  .use(cors());
 
 const listHandlers = (req, res) => res.json({ handlers });
 const getHandler = ({ params: { handler }, query }, res) => invokeHandler(res, handler, query);
