@@ -12,11 +12,14 @@ const app = express()
 
 const listHandlers = (req, res) => res.json({ handlers });
 const getHandler = ({ params: { handler }, query }, res) => invokeHandler(res, handler, query);
-const invokeHandler = (res, handler, data = {}) => (
-  handlers[handler] ?
-  handlers[handler](data, null, (err, result) => result ? res.send(result) : res.send(err)) :
-  res.send(`${handler} is not a valid handler`)
+const invokeHandler = (res, handler, data = {}) => (handlers[handler]
+  ? handlers[handler](data, null, (err, result) => result
+    ? res.send(result)
+    : res.send(err)
+  )
+  : res.send(`${handler} is not a valid handler`)
 );
+
 const postHandler = ({ params: { handler }, body, query }, res) => (
   invokeHandler(res, handler, Object.assign({}, body, query))
 );

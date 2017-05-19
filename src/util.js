@@ -7,9 +7,9 @@ export function createHandler(Clss) {
   };
 
   return async (params, ctx, cb) => {
-    for (let param in params) {
-      console.log(`${param}: ${params[param]}`);
-    }
+    // for (let param in params) {
+    //   console.log(`${param}: ${params[param]}`);
+    // }
 
     return cb(null, await new Clss(params));
   };
