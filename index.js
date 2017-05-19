@@ -8,6 +8,7 @@ const { PORT = 3000 } = process.env;
 
 const app = express()
   .use(bodyParser.json())
+  .use(bodyParser.urlencoded({ extended: true }))
   .use(cors());
 
 const listHandlers = (req, res) => res.json({ handlers });
@@ -20,13 +21,23 @@ const invokeHandler = (res, handler, data = {}) => (handlers[handler]
   : res.send(`${handler} is not a valid handler`)
 );
 
-const postHandler = ({ params: { handler }, body, query }, res) => (
-  invokeHandler(res, handler, Object.assign({}, body, query))
+const postHandler = ({ params: { handler, uri }, body, method, headers }, res) => (
+  invokeHandler(res, handler, Object.assign(
+    {},
+    { uri, method },
+    (headers['content-type'] === 'application/x-www-form-urlencoded'
+    ? { form: body }
+    : { body })
+  ))
 );
 
 app.get('/', listHandlers);
 app.get('/:handler', getHandler);
+app.put('/:handler', postHandler);
 app.post('/:handler', postHandler);
+app.get('/:handler/:uri', getHandler);
+app.put('/:handler/:uri', postHandler);
+app.post('/:handler/:uri', postHandler);
 app.options('/', listHandlers);
 
 app.listen(PORT, () => console.info('Server started on port', PORT));
