@@ -6,7 +6,6 @@ describe('Proxy', () => {
     const login = {
       uri: 'https://login.com',
       form: {
-        appId: 'td.toro',
         userid: 'test123@test.com',
         password: 'test1234',
       },
