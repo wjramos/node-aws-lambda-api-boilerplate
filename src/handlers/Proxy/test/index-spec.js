@@ -4,7 +4,7 @@ import assert form 'assert';
 describe('Proxy', () => {
   it('should proxy a request to another endpoint', async () => {
     const login = {
-      uri: 'https://qa-lucie.timeinc.com/webservices/toro/login',
+      uri: 'https://login.com',
       form: {
         appId: 'td.toro',
         userid: 'test123@test.com',
