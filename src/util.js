@@ -10,8 +10,11 @@ export function createHandler(Clss) {
     // for (let param in params) {
     //   console.log(`${param}: ${params[param]}`);
     // }
-
-    return cb(null, await new Clss(params));
+    try {
+      return cb(null, await new Clss(params));
+    } catch (err) {
+      return cb(err);
+    }
   };
 }
 
