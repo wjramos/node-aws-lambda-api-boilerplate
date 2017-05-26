@@ -25,8 +25,8 @@
     "start": "ENV=local nodemon index.js --exec babel-node",
     "watch": "npm run watch:test",
     "watch:test": "npm run test:unit -- -w",
-    "test": "npm run test:unit && npm run test:cover && npm run test:lint",
-    "test:unit": "ENV=test mocha --compilers js:babel-core/register -R dot -u bdd --recursive ./src/**/*-spec.js",
+    "test": "npm run test:unit && npm run test:cover && npm run test:lint && ava",
+    "test:unit": "ENV=test mocha --harmony -R dot -u bdd ./src/**/*-spec.js",
     "test:cover": "ENV=test nyc --reporter=lcov --reporter=text-lcov npm test",
     "test:lint": "npm run lint",
     "lint": "npm run lint:src && npm run lint:test",
@@ -46,6 +46,7 @@
     "webpack": "^1.14.0"
   },
   "devDependencies": {
+    "ava": "^0.19.1",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.1",

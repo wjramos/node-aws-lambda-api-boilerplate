@@ -1,17 +1,18 @@
 import fs from 'fs';
 import path from 'path';
 
-export function createHandler(Clss) {
-  if (!isClass(Clss)) {
-    throw new Error(`${Clss.name} is not a class`);
-  };
-
+export function createHandler(fn) {
   return async (params, ctx, cb) => {
     // for (let param in params) {
     //   console.log(`${param}: ${params[param]}`);
     // }
+
     try {
-      return cb(null, await new Clss(params));
+      if (isClass(fn)) {
+        return cb(null, await new fn(params));
+      }
+
+      return cb(null, await fn(params));
     } catch (err) {
       return cb(err);
     }
@@ -19,13 +20,7 @@ export function createHandler(Clss) {
 }
 
 export function isClass(fn) {
-  if ( typeof fn === 'function' && fn.prototype.constructor === fn ) {
-    try {
-      return !!new fn();
-    } catch (e) {}
-  }
-
-  return false;
+  return !!(typeof fn === 'function' && fn.prototype && fn.prototype.constructor === fn && new fn());
 }
 
 export function getDirectories(srcpath) {

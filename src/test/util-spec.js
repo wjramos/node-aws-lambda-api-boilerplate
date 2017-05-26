@@ -6,21 +6,31 @@ const getResult = (err, result) => result;
 const getError = (err, result) => err;
 
 describe('createHandler', () => {
-  const Constructor = Object;
-  let handler;
+  const CONSTRUCTOR = Object;
+  const FUNC = () => {};
+  let classHandler;
 
-  beforeEach(() => handler = createHandler(Constructor));
+  beforeEach(() => {
+    classHandler = createHandler(CONSTRUCTOR);
+    fnHandler = createHandler(FUNC);
+  );
 
   it('should return a function', () => {
-    assert.isFunction(handler);
+    assert.isFunction(classHandler);
+    assert.isFunction(fnHandler);
   });
 
   it('should pass a singleton of a class to the second parameter of a callback', () => {
-    assert.instanceOf(handler({}, null, getResult), Constructor);
+    assert.instanceOf(classHandler({}, null, getResult), CONSTRUCTOR);
+  });
+
+  it('should pass a regular function the second parameter of a callback', () => {
+    assert.instanceOf(fnHandler({}, null, getResult), Function);
   });
 
   it('should pass an error to first parameter if an error is encountered', () => {
-    assert(handler({}, null, getError));
+    assert(classHandler({}, null, getError));
+    assert(fnHandler({}, null, getError));
   });
 });
 
@@ -44,4 +54,7 @@ describe('isClass', () => {
     assert(!isClass(CLASS_INSTANCE));
     assert(!isClass(CONSTRUCTOR_INSTANCE));
   });
+});
+
+describe('kebabCase', () => {
 });
