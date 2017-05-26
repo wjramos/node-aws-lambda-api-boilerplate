@@ -20,7 +20,12 @@ export function createHandler(fn) {
 }
 
 export function isClass(fn) {
-  return !!(typeof fn === 'function' && fn.prototype && fn.prototype.constructor === fn && new fn());
+  return !!(
+    typeof fn === 'function' 
+    && fn.prototype
+    && fn.prototype.constructor === fn
+    && new fn()
+  );
 }
 
 export function getDirectories(srcpath) {
